@@ -1,0 +1,82 @@
+.operation {
+    position: absolute;
+    z-index: 100000;
+    height: 100rpx;
+    top: 50rpx;
+    right: 50rpx;
+}
+
+.avatar {
+    height: 100rpx;
+    width: 100rpx;
+    position: absolute;
+    bottom: 50rpx;
+    right: 50rpx;
+    z-index: 100000;
+    border-radius: 50rpx;
+    box-shadow: 0 0 10px #00abff;
+}
+
+.history {
+    height: 80rpx;
+    width: 180rpx;
+    position: absolute;
+    bottom: 190rpx;
+    right: 50rpx;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.share {
+    height: 80rpx;
+    width: 180rpx;
+    position: absolute;
+    bottom: 300rpx;
+    right: 50rpx;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.menu-text {
+    width: 100rpx;
+}
+
+.menu-image {
+    background-color: #eee;
+    width: 80rpx;
+    height: 100%;
+    border-radius: 40rpx;
+}
+
+.menu-text .text {
+    padding: 10rpx;
+    border-radius: 10rpx;
+    font-size: 28rpx;
+    background-color: #eee;
+    width: 76rpx;
+}
+
+.show-menu {
+    visibility: visible;
+    opacity: 1;
+    transition: all 0.5s ease-in-out
+}
+
+.hide-menu {
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.5s ease-in-out
+}
+
+button {
+    line-height: 28rpx;
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+button::after {
+    content: none;
+}
