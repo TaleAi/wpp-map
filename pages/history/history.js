@@ -10,7 +10,8 @@ Page({
    */
   data: {
     menuShow: false,
-    trails: []
+    trails: [],
+    noMore: false
   },
 
   /**
@@ -21,15 +22,22 @@ Page({
     this.query = new app.AV.Query('Map');
     app.getUserInfo(user => {
       this.user = user;
-      this.getHistoryData();
       this.setData({
         avatarUrl: this.user.avatarUrl
       });
     })
   },
 
+  onShow() {
+    this.setData({
+      trails: [],
+      noMore:false
+    });
+    this.getHistoryData();
+  },
+
   getHistoryData() {
-    if (!this.loading) {
+    if (!this.loading && !this.data.noMore) {
       this.loading = true;
       this.query.equalTo('user', this.user.currentUser)
         .limit(20)
@@ -37,17 +45,30 @@ Page({
         .descending('createdAt')
         .find()
         .then(trails => {
-          const pTrails = this.data.trails;
-          trails.filter(trail => {
-            trail.createdAt = util.formatTime(trail.createdAt);
-            if (trail.attributes.distance > 100) {
-              trail.attributes.dist = (trail.attributes.distance / 1000).toFixed(2) + 'km';
-            } else {
-              trail.attributes.dist = trail.attributes.distance.toFixed(2) + '米';
+          if (trails.length > 0) {
+            const pTrails = this.data.trails;
+            trails.filter(trail => {
+              trail.createdAt = util.formatTime(trail.createdAt);
+              if (trail.attributes.distance > 100) {
+                trail.attributes.dist = (trail.attributes.distance / 1000).toFixed(2) + 'km';
+              } else {
+                trail.attributes.dist = trail.attributes.distance.toFixed(2) + '米';
+              }
+              pTrails.push(trail);
+            })
+            this.setData({ trails: pTrails });
+            this.loading = false;
+            if (trails.length < 20) {
+              this.setData({
+                noMore: true
+              })
             }
-            pTrails.push(trail);
-          })
-          this.setData({ trails: pTrails });
+          } else {
+            this.setData({
+              noMore: true
+            });
+          }
+
         })
         .catch(() => {
           this.loading = false;
@@ -60,7 +81,8 @@ Page({
    */
   onPullDownRefresh() {
     this.setData({
-      trails: []
+      trails: [],
+      noMore:false
     });
     this.getHistoryData();
   },
@@ -82,8 +104,8 @@ Page({
     wx.navigateBack();
   },
 
-  lookInMap(e){
-    wx.setStorageSync('trail',e.currentTarget.dataset.trail);
+  lookInMap(e) {
+    wx.setStorageSync('trail', e.currentTarget.dataset.trail);
     wx.navigateTo({
       url: '/pages/trail/trail',
     });

@@ -11,6 +11,7 @@
       <view style="font-size:28rpx">{{trail.dist}}</view>
     </view>
   </block>
+  <view style="color:#e0e0e0;text-align:center" wx:if="{{noMore}}">已经到底啦，别扯了</view>
 </view>
 <view>
   <image class="avatar" catchtap="toggleMenu" mode="scaleToFill" src="{{avatarUrl}}"></image>

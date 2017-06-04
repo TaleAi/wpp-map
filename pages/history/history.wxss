@@ -46,7 +46,7 @@
 .avatar {
     height: 100rpx;
     width: 100rpx;
-    position: absolute;
+    position: fixed;
     bottom: 50rpx;
     right: 50rpx;
     z-index: 100000;
@@ -57,7 +57,7 @@
 .history {
     height: 80rpx;
     width: 180rpx;
-    position: absolute;
+    position: fixed;
     bottom: 190rpx;
     right: 50rpx;
     display: flex;
@@ -68,7 +68,7 @@
 .share {
     height: 80rpx;
     width: 180rpx;
-    position: absolute;
+    position: fixed;
     bottom: 300rpx;
     right: 50rpx;
     display: flex;

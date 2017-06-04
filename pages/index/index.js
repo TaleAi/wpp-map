@@ -39,6 +39,34 @@ Page({
         app.getUserInfo((user) => {
             this.user = user;
 
+            wx.getStorage({
+                key: 'trailData',
+                success: (res) => {
+                    console.log(res);
+                    if (res.data) {
+                        let data = res.data;
+                        let points = data.polyline[0].points;
+                        let point = points[points.length - 1];
+                        let title = '';
+                        this.BDMap.regeocoding({
+                            location: point.latitude + ',' + point.longitude,
+                            fail: (console.error),
+                            success: (bdRes) => {
+                                title = bdRes.wxMarkerData[0].address;
+                                data.markers.push({
+                                    latitude: point.latitude,
+                                    longitude: point.longitude,
+                                    title: title
+                                })
+                                this.saveTrail(data, data.dist);
+                            },
+                            iconPath: '/images/location.png',
+                            iconTapPath: '/images/location.png'
+                        });
+
+                    }
+                }
+            })
         });
 
         app.getSystemInfo((systemInfo) => {
@@ -76,14 +104,14 @@ Page({
         this.BDMap = new bMap.BMapWX({
             ak: 'nr9Kb7rdWdwqCDEoETRoN7bzGhIl0j8h'
         });
-        this.mapCtx = wx.createMapContext('map');        
+        this.mapCtx = wx.createMapContext('map');
         wx.getLocation({
-          success: (res) => {
-            this.setData({
-              latitude:res.latitude,
-              longitude:res.longitude
-            })
-          },
+            success: (res) => {
+                this.setData({
+                    latitude: res.latitude,
+                    longitude: res.longitude
+                })
+            },
         });
     },
     onUnload() {
@@ -114,6 +142,13 @@ Page({
         let controls = this.data.controls;
         controls[1].iconPath = '/images/stop.png';
         this.setData({
+            markers: [],
+            polyline: [{
+                points: [],
+                color: "#FF0000DD",
+                width: 2,
+                dottedLine: true
+            }],
             controls: controls,
             operation: { state: MOVE_STATUS.stopMoving }
         });
@@ -144,7 +179,7 @@ Page({
         });
 
         if (this.data.operation.state === MOVE_STATUS.resting) {
-            this.saveTrail();
+            this.saveTrail(this.data, this.dist);
         }
     },
 
@@ -168,27 +203,20 @@ Page({
         }
     },
 
-    saveTrail() {
-        
+    saveTrail(data, dist) {
+
         let map = new MapData();
-        map.set('startLocation', new app.AV.GeoPoint(this.data.markers[0].latitude,this.data.markers[0].longitude)); //根据开始点查询附近
-        map.set('startPlaceName', this.data.markers[0].title);
-        map.set('endLongitude', this.data.markers[1].longitude);
-        map.set('endLatitude', this.data.markers[1].latitude);
-        map.set('endPlaceName', this.data.markers[1].title);
-        map.set('points', this.data.polyline[0].points);
+        map.set('startLocation', new app.AV.GeoPoint(data.markers[0].latitude, data.markers[0].longitude)); //根据开始点查询附近
+        map.set('startPlaceName', data.markers[0].title);
+        map.set('endLongitude', data.markers[1].longitude);
+        map.set('endLatitude', data.markers[1].latitude);
+        map.set('endPlaceName', data.markers[1].title);
+        map.set('points', data.polyline[0].points);
         map.set('user', this.user.currentUser);
-        map.set('distance', this.dist); // 单位为m
+        map.set('distance', dist); // 单位为m
         map.save().then((map) => {
-            this.setData({
-                markers: [],
-                polyline: [{
-                    points: [],
-                    color: "#FF0000DD",
-                    width: 2,
-                    dottedLine: true
-                }]
-            })
+            this.dist = 0;
+            wx.removeStorageSync('trailData');
         })
     },
 
@@ -221,6 +249,15 @@ Page({
                         this.setData({
                             polyline: polyline
                         });
+
+                        wx.setStorage({
+                            key: 'trailData',
+                            data: {
+                                markers: this.data.markers,
+                                polyline: this.data.polyline,
+                                dist: this.dist
+                            }
+                        })
 
                         this.mapCtx.moveToLocation();
                     }
@@ -303,14 +340,14 @@ Page({
         return {
             title: '朋友喊你来运动',
             path: '/pages/index/index',
-            success: function(res) {
+            success: function (res) {
                 wx.showToast({
                     title: '分享成功',
                     icon: 'success',
                     duration: 2000
                 })
             },
-            fail: function(res) {
+            fail: function (res) {
                 // 转发失败
             }
         }

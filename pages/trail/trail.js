@@ -63,5 +63,13 @@ Page({
 
   back(){
     wx.navigateBack();
+  },
+
+  onHide(){
+    wx.removeStorageSync('trail');
+  },
+
+  onUnload(){
+    wx.removeStorageSync('trail');
   }
 })
