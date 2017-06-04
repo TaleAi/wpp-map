@@ -59,9 +59,7 @@ Page({
                                     title: title
                                 })
                                 this.saveTrail(data, data.dist);
-                            },
-                            iconPath: '/images/location.png',
-                            iconTapPath: '/images/location.png'
+                            }
                         });
 
                     }
@@ -158,9 +156,7 @@ Page({
             success: (data) => {
                 this.getBaiduLocationSuccess(data);
                 this.locationChange();
-            },
-            iconPath: '/images/location.png',
-            iconTapPath: '/images/location.png'
+            }
         });
     },
 
@@ -193,9 +189,7 @@ Page({
 
         this.BDMap.regeocoding({
             fail: (console.error),
-            success: this.getBaiduLocationSuccess,
-            iconPath: '/images/location.png',
-            iconTapPath: '/images/location.png'
+            success: this.getBaiduLocationSuccess
         });
 
         if (this.timer) {
