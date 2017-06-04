@@ -1,17 +1,33 @@
-<image class="avatar" catchtap="toggleMenu" mode="scaleToFill" src="{{avatarUrl}}"></image>
-    <view class="{{ menuShow ? 'history show-menu' : 'history hide-menu' }}" catchtap="goHistory">
-      <view class="menu-text">
-        <text class="text">记录</text>
+
+<view class="trail-list">
+  <block wx:for="{{trails}}" wx:for-item="trail" wx:key="objectId">
+    <view class="flex-wrap trail" data-trail="{{trail}}" bindtap="lookInMap">
+      <image src='/images/location.png' class="trail-icon"></image>
+      <view class="trail-text">
+        <view>起点:{{trail.startPlaceName}}</view>
+        <view>终点:{{trail.endPlaceName}}</view>
+        <view>结束时间:{{trail.createdAt}}</view>
       </view>
-      <view class="menu-image">
-        <image style="width:60rpx;height:60rpx;padding:10rpx" src="/images/history.png"></image>
-      </view>
+      <view style="font-size:28rpx">{{trail.dist}}</view>
     </view>
-    <view class="{{ menuShow ? 'share show-menu' : 'share hide-menu' }}">
-      <view class="menu-text">
-        <button open-type="share" class="text">分享</button>
-      </view>
-      <button open-type="share" class="menu-image">
-        <image style="width:60rpx;height:60rpx;padding:10rpx" src="/images/share.png"></image>
-      </button>
+  </block>
+</view>
+<view>
+  <image class="avatar" catchtap="toggleMenu" mode="scaleToFill" src="{{avatarUrl}}"></image>
+  <view class="{{ menuShow ? 'history show-menu' : 'history hide-menu' }}" catchtap="goMyInfo">
+    <view class="menu-text">
+      <text class="text">动态</text>
     </view>
+    <view class="menu-image">
+      <image style="width:60rpx;height:60rpx;padding:10rpx" src="/images/share.png"></image>
+    </view>
+  </view>
+  <view class="{{ menuShow ? 'share show-menu' : 'share hide-menu' }}" catchtap="back">
+    <view class="menu-text">
+      <text class="text">返回</text>
+    </view>
+    <view open-type="share" class="menu-image">
+      <image style="width:60rpx;height:60rpx;padding:10rpx" src="/images/share.png"></image>
+    </view>
+  </view>
+</view>

@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/logs/logs",
-    "pages/history/history"
+    "pages/history/history",
+    "pages/trail/trail"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -19,14 +20,14 @@
       {
         "pagePath": "pages/index/index",
         "text": "我的",
-        "iconPath": "images/index.png",
-        "selectedIconPath": "images/index_focus.png"
+        "iconPath": "images/ing.png",
+        "selectedIconPath": "images/ing-active.png"
       },
       {
         "pagePath": "pages/logs/logs",
         "text": "圈子",
-        "iconPath": "images/index.png",
-        "selectedIconPath": "images/index_focus.png"
+        "iconPath": "images/coming.png",
+        "selectedIconPath": "images/coming-active.png"
       }
     ]
   }

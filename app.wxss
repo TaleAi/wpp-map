@@ -10,3 +10,8 @@
     box-sizing: border-box;
     padding: 0
 }
+
+.flex-wrap{
+  display: flex;
+  flex-direction: row;
+}

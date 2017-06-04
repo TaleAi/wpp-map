@@ -24,6 +24,7 @@ App({
                         currentUser.set(userInfo).save().then(user => {
                             // 成功，此时可在控制台中看到更新后的用户信息
                             this.globalData.userInfo = user.toJSON();
+                            this.globalData.userInfo.currentUser = currentUser;
                             cb(this.globalData.userInfo);
                         }).catch(console.error);
                     }

@@ -2,6 +2,7 @@
 //获取应用实例
 const app = getApp();
 const bMap = require('../../libs/bmap-wx.min.js');
+const MapData = app.AV.Object.extend('Map');
 const MOVE_STATUS = {
     moving: 'moving',
     resting: 'resting'
@@ -75,8 +76,15 @@ Page({
         this.BDMap = new bMap.BMapWX({
             ak: 'nr9Kb7rdWdwqCDEoETRoN7bzGhIl0j8h'
         });
-        this.mapCtx = wx.createMapContext('map');
-        this.mapCtx.moveToLocation();
+        this.mapCtx = wx.createMapContext('map');        
+        wx.getLocation({
+          success: (res) => {
+            this.setData({
+              latitude:res.latitude,
+              longitude:res.longitude
+            })
+          },
+        });
     },
     onUnload() {
         if (this.data.operation.state === MOVE_STATUS.moving) {
@@ -161,16 +169,15 @@ Page({
     },
 
     saveTrail() {
-        let MapData = app.AV.Object.extend('Map');
+        
         let map = new MapData();
-        map.set('startLongitude', this.data.markers[0].longitude);
-        map.set('startLatitude', this.data.markers[0].latitude);
+        map.set('startLocation', new app.AV.GeoPoint(this.data.markers[0].latitude,this.data.markers[0].longitude)); //根据开始点查询附近
         map.set('startPlaceName', this.data.markers[0].title);
         map.set('endLongitude', this.data.markers[1].longitude);
         map.set('endLatitude', this.data.markers[1].latitude);
         map.set('endPlaceName', this.data.markers[1].title);
-        map.set('points', JSON.stringify(this.data.polyline[0].points));
-        map.set('userId', this.user.objectId);
+        map.set('points', this.data.polyline[0].points);
+        map.set('user', this.user.currentUser);
         map.set('distance', this.dist); // 单位为m
         map.save().then((map) => {
             this.setData({

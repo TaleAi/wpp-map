@@ -1,3 +1,40 @@
+.trail-list {
+  padding: 4px 6px 48px;
+}
+.done {
+  text-decoration: line-through;
+  color: #ccc;
+}
+.trail {
+  font-size: 36rpx;
+  height: 120rpx;
+  padding: 20rpx 24rpx;
+  overflow: hidden;
+  align-items: center;
+  background-color: #fff;
+  margin: 18rpx 0;
+  border-radius: 6rpx;
+  justify-content: center;
+  box-shadow: 0 0 10rpx #eee;
+}
+.trail-icon {
+  margin-right: 24rpxpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+.trail-text {
+  white-space: nowrap;
+  display: inline-flex;
+  flex-direction: column;
+  height: 100rpx;
+  line-height:34rpx;
+  font-size: 24rpx;
+  padding:0 20rpx;
+  overflow: hidden;
+  flex: 1 1 70%;
+}
+
+
 .operation {
     position: absolute;
     z-index: 100000;
@@ -68,15 +105,4 @@
     visibility: hidden;
     opacity: 0;
     transition: all 0.5s ease-in-out
-}
-
-button {
-    line-height: 28rpx;
-    margin: 0;
-    border: none;
-    padding: 0;
-}
-
-button::after {
-    content: none;
 }
