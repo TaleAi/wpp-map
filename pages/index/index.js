@@ -35,10 +35,12 @@ Page({
 
     onLoad() {
         this.dist = 0;
-
+        this.BDMap = new bMap.BMapWX({
+            ak: 'nr9Kb7rdWdwqCDEoETRoN7bzGhIl0j8h'
+        });
+        this.mapCtx = wx.createMapContext('map');
         app.getUserInfo((user) => {
             this.user = user;
-
             wx.getStorage({
                 key: 'trailData',
                 success: (res) => {
@@ -98,11 +100,7 @@ Page({
         })
     },
 
-    onReady() {
-        this.BDMap = new bMap.BMapWX({
-            ak: 'nr9Kb7rdWdwqCDEoETRoN7bzGhIl0j8h'
-        });
-        this.mapCtx = wx.createMapContext('map');
+    onReady(){
         wx.getLocation({
             success: (res) => {
                 this.setData({
@@ -112,11 +110,17 @@ Page({
             },
         });
     },
+
+    onShow() {
+         this.mapCtx.moveToLocation();
+    },
+
     onUnload() {
         if (this.data.operation.state === MOVE_STATUS.moving) {
             this.stopMoving();
         }
     },
+    
     createMarker(wxMarkerData, id) {
         //  根据百度地图返回的信息显示标记
         let marker = wxMarkerData;

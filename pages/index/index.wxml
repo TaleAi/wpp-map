@@ -1,5 +1,5 @@
 <!-- index.wxml -->
 <view class="container">
-  <map id="map" scale="18" controls="{{controls}}" bindcontroltap="control" markers="{{markers}}" polyline="{{polyline}}" longitude="{{longitude}}" latitude="{{latitude}}" show-location style="width: 100%; height: 100%;">
-  </map>
+  <map id="map" scale="18" controls="{{controls}}" bindcontroltap="control" markers="{{markers}}" polyline="{{polyline}}"
+       longitude="{{longitude}}" latitude="{{latitude}}" show-location style="width: 100%; height: 100%;"></map>
 </view>
