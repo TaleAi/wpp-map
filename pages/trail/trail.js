@@ -49,7 +49,7 @@ Page({
       }],
       controls: [{
         id: 1,
-        iconPath: '/images/location-control.png',
+        iconPath: '/images/back.png',
         position: {
           left: 20,
           top: 20,

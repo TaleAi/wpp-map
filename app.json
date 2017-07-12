@@ -1,9 +1,10 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/logs/logs",
     "pages/history/history",
-    "pages/trail/trail"
+    "pages/trail/trail",
+    "pages/news/add/index",
+    "pages/news/community/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -24,7 +25,7 @@
         "selectedIconPath": "images/ing-active.png"
       },
       {
-        "pagePath": "pages/logs/logs",
+        "pagePath": "pages/news/community/index",
         "text": "圈子",
         "iconPath": "images/coming.png",
         "selectedIconPath": "images/coming-active.png"

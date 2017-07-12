@@ -1,0 +1,3 @@
+<view class="section">
+  <textarea bindinput="TextAreaInput" auto-height placeholder="来发个匿名动态吧" />
+</view>
