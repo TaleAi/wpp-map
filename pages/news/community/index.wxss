@@ -1,1 +1,26 @@
-/* index.wxss */
+.message {
+  display: flex;
+  flex-direction: row;
+  padding: 20rpx 10rpx;
+}
+
+.head {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 60rpx;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20rpx;
+  font-size: 36rpx;
+}
+
+.info view{
+  padding: 0 0 10rpx 0;
+}
+
+.nickname{
+  color: #00abff;
+}

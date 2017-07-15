@@ -4,7 +4,8 @@
     "pages/history/history",
     "pages/trail/trail",
     "pages/news/add/index",
-    "pages/news/community/index"
+    "pages/news/community/index",
+    "pages/news/my/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

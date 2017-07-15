@@ -1,2 +1,19 @@
-<!--index.wxml-->
-<text>index.wxml</text>
+<view wx:for="{{messageList}}" wx:for-item="message" wx:key="" class="message">
+    <image class="head" src="{{message.user.avatarUrl}}"></image>
+    <view class="info">
+      <view class="nickname">{{message.user.nickname}}</view>
+      <view class="message-content">{{message.content}}</view>
+      <view>
+        <text>{{mssage.time}}</text><text>{{message.place}}</text>
+      </view>
+      <view class="classname">
+        {{message.picture}}
+      </view>
+      <view class="classname" wx:for="praiseList" wx:for-item="praise">{{praise.nickname}}</view>
+      <view class=" classname"  wx:if="{{message.commentList}}"  wx:for="{{message.commentList}} " wx:for-item="comment">
+        {{comment.nickname}}<text wx:if="{{comment.replyName}}">回复{{comment.replyName}}</text>:{{comment.info}}
+      </view>
+    </view>
+
+
+</view>

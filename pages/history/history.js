@@ -20,12 +20,7 @@ Page({
   onLoad(options) {
     this.loading = false;
     this.query = new app.AV.Query('Map');
-    app.getUserInfo(user => {
-      this.user = user;
-      this.setData({
-        avatarUrl: this.user.avatarUrl
-      });
-    })
+    
   },
 
   onShow() {
@@ -33,7 +28,14 @@ Page({
       trails: [],
       noMore:false
     });
-    this.getHistoryData();
+    
+    app.getUserInfo(user => {
+      this.user = user;
+      this.getHistoryData();      
+      this.setData({
+        avatarUrl: this.user.avatarUrl
+      });
+    })
   },
 
   getHistoryData() {
@@ -109,5 +111,11 @@ Page({
     wx.navigateTo({
       url: '/pages/trail/trail',
     });
+  },
+
+  active(){
+    wx.switchTab({
+      url: '/pages/news/community/index',
+    })
   }
 })
